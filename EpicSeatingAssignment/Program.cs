@@ -1,92 +1,92 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace EpicSeatingAssignment
 {
     public class Program
     {
-        private static Random rng = new Random();
-
-        public enum Devs
+        public static void Main(string[] args)
         {
-            Chester,
-            Eric,
-            Fahad,
-            Jason,
-            Mayur,
-            Susan
-        }
+            var previousArrangement = GetPreviousSeatingArrangement();
 
-        static void Main(string[] args)
-        {
-            var current = new List<string> {"Mayur", "Fahad", "Susan", "Jason", "Eric", "Chester"};
-            var seating = current.Clone();
+            var newArrangement = previousArrangement.Clone();
 
-            var sameSpot = true;
-            var enemiesExist = true;
             var i = 0;
-            while (enemiesExist || sameSpot)
+            do
             {
                 Console.WriteLine($"Iteration {++i}");
+                newArrangement = Extensions.Shuffle<string>(newArrangement);
+            } while (SamePosition(previousArrangement, newArrangement) || EnemiesExist(previousArrangement, newArrangement));
 
-                seating = Shuffle<string>(seating);
-
-                sameSpot = SameSpot(current, seating);
-                enemiesExist = EnemiesExist(seating);
-            }
-            
-            Display(seating);
+            SaveArrangement(newArrangement);
+            DisplayArrangement(newArrangement, i);
         }
 
-        private static void Display(IList<string> seating)
+        private static IList<string> GetPreviousSeatingArrangement()
         {
-            Console.WriteLine($"{seating[3]} {seating[2]} {seating[1]}");
-            Console.WriteLine($"{seating[4]} {seating[5]} {seating[0]}");
-            Console.ReadLine();
+            return File.ReadLines("../../../arrangement.txt").Last().Split(',').ToList();
         }
 
-        public static bool SameSpot(IList<string> current, IList<string> seating)
+        private static void SaveArrangement(IList<string> newArrangement)
         {
-            for (var i = 0; i < current.Count; i++)
+            using (var sw = new StreamWriter("../../../arrangement.txt", append: true))
             {
-                if (current[i] == seating[i]) return true;
+                sw.WriteLine('\n' + string.Join(',', newArrangement).Trim());
+                sw.Close();
             }
-
-            return false;
         }
 
-        private static bool EnemiesExist(IList<string> seating)
+        private static void DisplayArrangement(IList<string> newArragement, int i)
         {
-            if (seating[5] == seating[2]) return true;
-            if (seating[1] == seating[2]) return true;
-            if (seating[0] == seating[1]) return true;
-            if (seating[3] == seating[4]) return true;
-
-            return false;
+            Console.WriteLine($"\n{newArragement[3]}\t{newArragement[2]}\t{newArragement[1]}\t|");
+            Console.WriteLine($"{newArragement[4]}\t{newArragement[5]}\t{newArragement[0]}\t|");
+            Console.WriteLine($"\nSolved in {i} iterations");
         }
+
+        public static bool SamePosition(IList<string> previousArrangement, IList<string> newArrangement)
+        {
+            return previousArrangement.Where((t, i) => t == newArrangement[i]).Any();
+        }
+
+        private static bool EnemiesExist(IList<string> previousArrangement, IList<string> newArrangement)
+        {
+            return HaveSwapped(previousArrangement, newArrangement, 0, 5) ||
+                   HaveSwapped(previousArrangement, newArrangement, 1, 2) ||
+                   HaveSwapped(previousArrangement, newArrangement, 2, 3) ||
+                   HaveSwapped(previousArrangement, newArrangement, 4, 5);
+        }
+
+        private static bool HaveSwapped(IList<string> previousArrangement, IList<string> newArrangement, int i, int j)
+        {
+            return previousArrangement[i] == newArrangement[j] && previousArrangement[j] == newArrangement[i];
+        }
+    }
+
+    public static class Extensions
+    {
+        public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
+        {
+            return listToClone.Select(item => (T)item.Clone()).ToList();
+        }
+
+        private static readonly Random Seed = new Random();
 
         public static IList<T> Shuffle<T>(IList<T> list)
         {
-            int n = list.Count;
+            var n = list.Count;
+
             while (n > 1)
             {
                 n--;
-                int k = rng.Next(n + 1);
+                var k = Seed.Next(n + 1);
                 T value = list[k];
                 list[k] = list[n];
                 list[n] = value;
             }
 
             return list;
-        }
-    }
-
-    static class Extensions
-    {
-        public static IList<T> Clone<T>(this IList<T> listToClone) where T : ICloneable
-        {
-            return listToClone.Select(item => (T)item.Clone()).ToList();
         }
     }
 }
