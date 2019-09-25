@@ -1,0 +1,11 @@
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\bin\Debug\netcoreapp2.2\EpicSeatingAssignment.deps.json
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\bin\Debug\netcoreapp2.2\EpicSeatingAssignment.runtimeconfig.json
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\bin\Debug\netcoreapp2.2\EpicSeatingAssignment.runtimeconfig.dev.json
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\bin\Debug\netcoreapp2.2\EpicSeatingAssignment.dll
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\bin\Debug\netcoreapp2.2\EpicSeatingAssignment.pdb
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\obj\Debug\netcoreapp2.2\EpicSeatingAssignment.csprojAssemblyReference.cache
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\obj\Debug\netcoreapp2.2\EpicSeatingAssignment.csproj.CoreCompileInputs.cache
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\obj\Debug\netcoreapp2.2\EpicSeatingAssignment.AssemblyInfoInputs.cache
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\obj\Debug\netcoreapp2.2\EpicSeatingAssignment.AssemblyInfo.cs
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\obj\Debug\netcoreapp2.2\EpicSeatingAssignment.dll
+C:\Users\eric.bach\Downloads\EpicSeatingAssignment\EpicSeatingAssignment\obj\Debug\netcoreapp2.2\EpicSeatingAssignment.pdb
