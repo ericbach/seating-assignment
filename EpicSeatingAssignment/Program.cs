@@ -22,6 +22,7 @@ namespace EpicSeatingAssignment
 
             SaveArrangement(newArrangement);
             DisplayArrangement(newArrangement, i);
+            Console.ReadLine();
         }
 
         private static IList<string> GetPreviousSeatingArrangement()
@@ -38,10 +39,10 @@ namespace EpicSeatingAssignment
             }
         }
 
-        private static void DisplayArrangement(IList<string> newArragement, int i)
+        private static void DisplayArrangement(IList<string> newArrangement, int i)
         {
-            Console.WriteLine($"\n{newArragement[3]}\t{newArragement[2]}\t{newArragement[1]}\t|");
-            Console.WriteLine($"{newArragement[4]}\t{newArragement[5]}\t{newArragement[0]}\t|");
+            Console.WriteLine($"\n{newArrangement[3]}\t{newArrangement[2]}\t{newArrangement[1]}\t|");
+            Console.WriteLine($"{newArrangement[4]}\t{newArrangement[5]}\t{newArrangement[0]}\t|");
             Console.WriteLine($"\nSolved in {i} iterations");
         }
 
@@ -52,10 +53,22 @@ namespace EpicSeatingAssignment
 
         private static bool EnemiesExist(IList<string> previousArrangement, IList<string> newArrangement)
         {
-            return HaveSwapped(previousArrangement, newArrangement, 0, 5) ||
-                   HaveSwapped(previousArrangement, newArrangement, 1, 2) ||
-                   HaveSwapped(previousArrangement, newArrangement, 2, 3) ||
-                   HaveSwapped(previousArrangement, newArrangement, 4, 5);
+            return WerePreviousEnemies(newArrangement[1], newArrangement[2], previousArrangement) ||
+                   WerePreviousEnemies(newArrangement[2], newArrangement[3], previousArrangement) ||
+                   WerePreviousEnemies(newArrangement[4], newArrangement[5], previousArrangement) ||
+                   WerePreviousEnemies(newArrangement[0], newArrangement[5], previousArrangement);
+        }
+
+        private static bool WerePreviousEnemies(string p1, string p2, IList<string> previousArrangement)
+        {
+            return previousArrangement[1] == p1 && previousArrangement[2] == p2 ||
+                previousArrangement[2] == p1 && previousArrangement[1] == p2 ||
+                previousArrangement[2] == p1 && previousArrangement[3] == p2 ||
+                previousArrangement[3] == p1 && previousArrangement[2] == p2 ||
+                previousArrangement[4] == p1 && previousArrangement[5] == p2 ||
+                previousArrangement[5] == p1 && previousArrangement[4] == p2 ||
+                previousArrangement[0] == p1 && previousArrangement[5] == p2 ||
+                previousArrangement[5] == p1 && previousArrangement[0] == p2;
         }
 
         private static bool HaveSwapped(IList<string> previousArrangement, IList<string> newArrangement, int i, int j)
